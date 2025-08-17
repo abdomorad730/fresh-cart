@@ -1,7 +1,7 @@
-import React, { Children } from 'react'
+import React from 'react'
 import "./App.css"
 import Layout from './Components/Layout/Layout'
-import { createBrowserRouter, createHashRouter, Router, RouterProvider } from 'react-router-dom'
+import { createHashRouter, RouterProvider } from 'react-router-dom'
 import Home from './Components/Home/Home'
 import Cart from './Components/Cart/Cart'
 import Categories from './Components/Categories/Categories'
@@ -20,42 +20,36 @@ import WishList from './Components/WishList/WishList'
 import AllOrders from './Components/AllOrders/AllOrders'
 import CheckOut from './Components/CheckOut/CheckOut'
 
-
 export default function App() {
-
   const queryClient = new QueryClient()
 
+  let routes = createHashRouter([
+    {
+      path: "",
+      element: <Layout />,
+      children: [
+        { index: true, element: <ProtectedRoutes><Home /></ProtectedRoutes> },
+        { path: "Home", element: <ProtectedRoutes><Home /></ProtectedRoutes> },
+        { path: "Cart", element: <ProtectedRoutes><Cart /></ProtectedRoutes> },
+        { path: "WishList", element: <ProtectedRoutes><WishList /></ProtectedRoutes> },
+        { path: "Products", element: <ProtectedRoutes><Products /></ProtectedRoutes> },
+        { path: "Categories", element: <ProtectedRoutes><Categories /></ProtectedRoutes> },
+        { path: "Brands", element: <ProtectedRoutes><Brands /></ProtectedRoutes> },
+        { path: "productdetails/:id/:categoryname", element: <ProtectedRoutes><ProductDetails /></ProtectedRoutes> },
+        { path: "Login", element: <ProtectedAuth><Login /></ProtectedAuth> },
+        { path: "Register", element: <ProtectedAuth><Register /></ProtectedAuth> },
+        { path: "AllOrders", element: <ProtectedRoutes><AllOrders /></ProtectedRoutes> },
+        { path: "CheckOut", element: <ProtectedRoutes><CheckOut /></ProtectedRoutes> },
+        { path: "*", element: <ProtectedAuth><NotFound /></ProtectedAuth> },
+      ]
+    }
+  ])
 
-
-
-  let routes =  createHashRouter([
-    {path:"" , basename: "/fresh-cart", element: <Layout/> ,children: [
-      {index:true , element: <ProtectedRoutes><Home/></ProtectedRoutes>},
-      {path:"Home" , element: <ProtectedRoutes><Home/></ProtectedRoutes>},
-      {path:"Cart" , element: <ProtectedRoutes><Cart/></ProtectedRoutes>},
-      {path:"WishList" ,element:<ProtectedRoutes><WishList/></ProtectedRoutes> },
-      {path:"Products" , element:<ProtectedRoutes><Products/></ProtectedRoutes>},
-      {path:"Categories" , element: <ProtectedRoutes><Categories/></ProtectedRoutes>},
-      {path:"Brands" , element: <ProtectedRoutes><Brands/></ProtectedRoutes>},
-      {path:"productdetails/:id/:categoryname" , element: <ProtectedRoutes><ProductDetails/></ProtectedRoutes>},
-      {path:"Login" , element: <ProtectedAuth><Login/></ProtectedAuth>},
-      {path:"Register" , element:<ProtectedAuth><Register/></ProtectedAuth> },
-      {path:"*" , element:<ProtectedAuth><NotFound/></ProtectedAuth>},
-      {path :"AllOrders" , element : <ProtectedRoutes><AllOrders/></ProtectedRoutes>},
-      {path :"CheckOut" , element : <ProtectedRoutes><CheckOut/></ProtectedRoutes>},
-
-    ]}
-   
-   ])
   return (
-    <>
-
     <QueryClientProvider client={queryClient}>
- <RouterProvider router={routes}></RouterProvider>
- <ReactQueryDevtools initialIsOpen={false} />
- <Toaster   position="bottom-center"
-  reverseOrder={false}/>
- </QueryClientProvider>
-    </>
-  );
+      <RouterProvider router={routes} />
+      <ReactQueryDevtools initialIsOpen={false} />
+      <Toaster position="bottom-center" reverseOrder={false} />
+    </QueryClientProvider>
+  )
 }
