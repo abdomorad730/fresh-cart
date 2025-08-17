@@ -1,12 +1,12 @@
 const cacheName = 'v3';
 
 const assets = [
-  '/',               
-  '/index.html',
-  '/manifest.json',
-  '/vite.svg',
+    '/',
+    '/index.html',
+    '/manifest.json',
+    '/vite.svg',
     '/logo192.png',
-  '/logo512.png',
+    '/logo512.png',
 
 ];
 
@@ -38,7 +38,7 @@ self.addEventListener('fetch', (event) => {
     );
 });
 
-self.addEventListener('push',(event)=>{
+self.addEventListener('push', (event) => {
     event.waitUntil(
         self.registration.showNotification()
     )

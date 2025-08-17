@@ -2,11 +2,13 @@
   "name": "e-commerce",
   "private": true,
   "version": "0.0.0",
- 
   "type": "module",
+  "homepage": "https://abdomorad730.github.io/fresh-cart",
   "scripts": {
     "dev": "vite",
-   
+    "predeploy": "npm run build",
+"deploy": "gh-pages -d dist",
+    "start": "react-scripts start",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"

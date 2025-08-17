@@ -1,7 +1,7 @@
 import React, { Children } from 'react'
 import "./App.css"
 import Layout from './Components/Layout/Layout'
-import { createBrowserRouter, Router, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, createHashRouter, Router, RouterProvider } from 'react-router-dom'
 import Home from './Components/Home/Home'
 import Cart from './Components/Cart/Cart'
 import Categories from './Components/Categories/Categories'
@@ -28,8 +28,8 @@ export default function App() {
 
 
 
-  let routes =  createBrowserRouter([
-    {path:"" , element: <Layout/> ,children: [
+  let routes =  createHashRouter([
+    {path:"" , basename: "/fresh-cart", element: <Layout/> ,children: [
       {index:true , element: <ProtectedRoutes><Home/></ProtectedRoutes>},
       {path:"Home" , element: <ProtectedRoutes><Home/></ProtectedRoutes>},
       {path:"Cart" , element: <ProtectedRoutes><Cart/></ProtectedRoutes>},
